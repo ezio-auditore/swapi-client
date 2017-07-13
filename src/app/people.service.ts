@@ -18,7 +18,7 @@ constructor(private http : Http) {
 getAll() : Observable<Person[]>{
 let people$ = this.http
   .get(`${this.baseUrl}/people`,{headers:this.getHeaders()})
-  .map(this.mapPersons)
+  .map(mapPersons)
   return people$;
 }
 
@@ -31,22 +31,24 @@ private getHeaders(){
   return headers;
 }
 
- mapPersons(response:Response): Person[]{
-    return response.json().results.map(this.toPerson);
+
 }
-   toPerson(r:any): Person{
-    let person = <Person>({
-      id :this.extractedID(r),
-      name: r.name,
-      weight:Number.parseInt(r.mass),
-      height:Number.parseInt(r.height)
-    });
-    console.log("Person parsed: "+person);
-    return person;
+function mapPersons(response:Response): Person[]{
+
+   return response.json().results.map(toPerson);
 }
-  extractedID(personData:any) : number{
-    let id = personData.url.replace('http://swapi.co/api/people/','').replace('/','');
-    console.log(id);
-    return parseInt(id);
+  function toPerson(r:any): Person{
+   let person = <Person>({
+     id :extractedID(r),
+     name: r.name,
+     weight:parseInt(r.mass),
+     height:parseInt(r.height)
+   });
+
+   return person;
 }
+ function extractedID(personData:any) : number{
+   let id = personData.url.replace('http://swapi.co/api/people/','').replace('/','');
+   
+   return parseInt(id);
 }

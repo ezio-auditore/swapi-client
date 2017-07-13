@@ -8,7 +8,7 @@ import { PersonDetailsComponent } from '../person-details/person-details.compone
   selector: 'app-people-list',
   template: `
     <ul >
-    <li *ngFor = "let person of people ">
+    <li *ngFor = "let person of people  ">
     <a [routerLink] = "['/persons',person.id]">{{person.name}}</a>
     </li>
     </ul>
