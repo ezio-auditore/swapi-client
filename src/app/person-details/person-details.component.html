@@ -1,0 +1,24 @@
+<section *ngIf="person">
+<h2>You selected : {{person.name}}</h2>
+<h3>Description</h3>
+<p>{{person.name}} weighs {{person.weight}} and height {{person.height}}</p>
+</section>
+
+<form>
+    <div>
+      <label for="name">Name</label>
+      <input type="text" name="name" [(ngModel)]="person.name" required #name="ngModel">
+      <div [hidden]='name.valid || name.pristine' class="error">
+        Name is required
+      </div>
+      <label for="height">Height</label>
+      <input type="number" name="height" [(ngModel)]="person.height" >
+      <label for="weight">Weight</label>
+      <input type="number" name="weight" [(ngModel)]="person.weight" >
+    </div>
+</form>
+<button (click)='goToPeopleList()'>Back To People List</button>
+
+<p>
+ input "name" class is: {{ name.className }}
+</p>
